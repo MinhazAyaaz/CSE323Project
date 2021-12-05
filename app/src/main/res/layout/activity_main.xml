@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Algorithm:"
+        android:textColor="#070707"
+        android:textSize="24sp"
+        android:translationX="120dp"
+        android:translationY="100dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
+        android:translationX="65dp"
+        android:translationY="150dp"
+        android:entries="@array/Weight"
+        />
+
+
+
+    <ListView
+        android:id="@+id/processListView"
+        android:layout_width="352dp"
+        android:layout_height="300dp"
+        android:divider="#f00"
+        android:dividerHeight="1dp"
+        android:translationX="30dp"
+        android:translationY="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.131"
+        />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DELETE"
+        android:translationX="290dp"
+        android:translationY="550dp"
+        app:backgroundTint="#252525" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT"
+        android:translationX="165dp"
+        android:translationY="550dp"
+        app:backgroundTint="#252525" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:translationX="30dp"
+        android:translationY="550dp"
+        app:backgroundTint="#252525" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate"
+        android:translationX="150dp"
+        android:translationY="630dp"
+        app:backgroundTint="#252525" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
