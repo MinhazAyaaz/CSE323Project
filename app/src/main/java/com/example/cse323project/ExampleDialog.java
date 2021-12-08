@@ -6,36 +6,41 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class Dialogbox extends AppCompatDialogFragment{
+public class ExampleDialog extends AppCompatDialogFragment{
 
     private EditText editTextName;
-    private EditText editTextNumber;
-    private DialogBoxListener listener;
+    private EditText editTextBurst;
+    private EditText editTextArrival;
+    private ExampleDialogListener listener;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_dialogbox, null);
+        View view = inflater.inflate(R.layout.layout_dialog, null);
+        editTextName = view.findViewById(R.id.edit_name);
+        editTextBurst = view.findViewById(R.id.edit_burst);
+        editTextArrival = view.findViewById(R.id.edit_arrival);
+
         builder.setView(view)
-                .setTitle("Add Recipient")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setTitle("Add Process")
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String name = editTextName.getText().toString();
-                        String number = editTextNumber.getText().toString();
-                        if(!name.equals("") && !number.equals("")) {
-                            listener.applyTexts(name, number);
+                        String burst = editTextBurst.getText().toString();
+                        String arrival = editTextArrival.getText().toString();
+                        if(!name.equals("") && !burst.equals("") && !arrival.equals("")) {
+                            listener.applyTexts(name, burst, arrival);
                         }
                         else{
                             Toast.makeText(((Dialog) dialogInterface).getContext(), "Please fill up all fields!", Toast.LENGTH_SHORT).show();
@@ -43,10 +48,6 @@ public class Dialogbox extends AppCompatDialogFragment{
 
                     }
                 });
-
-        editTextName = view.findViewById(R.id.edit_name);
-        editTextNumber = view.findViewById(R.id.edit_number);
-
 
         return builder.create();
 
@@ -57,17 +58,19 @@ public class Dialogbox extends AppCompatDialogFragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (DialogBoxListener) context;
+            listener = (ExampleDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "Must implement DialogBox Listener");
         }
 
     }
 
-    public interface DialogBoxListener
+    public interface ExampleDialogListener
     {
-        void applyTexts(String username, String password);
+        void applyTexts(String name, String burst, String arrival);
     }
+
+
 
 }
 

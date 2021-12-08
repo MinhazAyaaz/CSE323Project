@@ -8,14 +8,22 @@
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="Process Name" />
 
     <EditText
-        android:id="@+id/edit_number"
+        android:id="@+id/edit_burst"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone number"
-        android:layout_below="@id/edit_name"/>
+        android:layout_below="@id/edit_name"
+        android:hint="Burst Time" />
+
+    <EditText
+        android:id="@+id/edit_arrival"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_name"
+        android:layout_marginTop="45dp"
+        android:hint="Arrival Time" />
 
 
 </RelativeLayout>
