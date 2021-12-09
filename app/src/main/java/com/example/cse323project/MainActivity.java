@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements ExampleDialog.Exa
     Button addButton;
     Button proceedButton;
     ArrayAdapter<String> adapter;
+    int processCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,9 @@ public class MainActivity extends AppCompatActivity implements ExampleDialog.Exa
     }
 
     @Override
-    public void applyTexts(String name, String burst, String arrival){
-        listItem.add(name + " " + burst + " " + arrival);
+    public void applyTexts(String burst, String arrival){
+        processCount++;
+        listItem.add(processCount + " " + burst + " " + arrival);
         adapter.notifyDataSetChanged();
     }
     }

@@ -21,7 +21,6 @@ public class ExampleDialog extends AppCompatDialogFragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog, null);
-        editTextName = view.findViewById(R.id.edit_name);
         editTextBurst = view.findViewById(R.id.edit_burst);
         editTextArrival = view.findViewById(R.id.edit_arrival);
 
@@ -36,11 +35,10 @@ public class ExampleDialog extends AppCompatDialogFragment{
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String name = editTextName.getText().toString();
                         String burst = editTextBurst.getText().toString();
                         String arrival = editTextArrival.getText().toString();
-                        if(!name.equals("") && !burst.equals("") && !arrival.equals("")) {
-                            listener.applyTexts(name, burst, arrival);
+                        if(!burst.equals("") && !arrival.equals("")) {
+                            listener.applyTexts(burst, arrival);
                         }
                         else{
                             Toast.makeText(((Dialog) dialogInterface).getContext(), "Please fill up all fields!", Toast.LENGTH_SHORT).show();
@@ -67,7 +65,7 @@ public class ExampleDialog extends AppCompatDialogFragment{
 
     public interface ExampleDialogListener
     {
-        void applyTexts(String name, String burst, String arrival);
+        void applyTexts(String burst, String arrival);
     }
 
 
