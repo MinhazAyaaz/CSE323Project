@@ -15,10 +15,9 @@ public class ResultActivity extends AppCompatActivity {
     //Variable declarations
     TextView text1;
     ArrayList<String> processList;
-    int[][] values = new int[100][3];
-    double avgwt;
-    double avgta;
-    String global;
+    int[][] values = new int[100][5];
+    double avgwaittime;
+    double avgturnaroundtime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class ResultActivity extends AppCompatActivity {
 
         fcfsAlgorithm();
         text1 = (TextView)findViewById(R.id.textView4);
-        text1.setText(String.format("%f",avgwt/4));
+        text1.setText(String.format("%f",avgwaittime/4));
     }
 
     public void fcfsAlgorithm(){
@@ -99,8 +98,8 @@ public class ResultActivity extends AppCompatActivity {
             }
             ta[i] = ct[i] - ar[i] ;          // turnaround time= completion time- arrival time
             wt[i] = ta[i] - bt[i] ;          // waiting time= turnaround time- burst time
-            avgwt += wt[i] ;               // total waiting time
-            avgta += ta[i] ;               // total turnaround time
+            avgwaittime += wt[i] ;               // total waiting time
+            avgturnaroundtime += ta[i] ;               // total turnaround time
         }
 
     }

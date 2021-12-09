@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class ExampleDialog extends AppCompatDialogFragment{
 
-    private EditText editTextName;
     private EditText editTextBurst;
     private EditText editTextArrival;
+    private EditText editTextPriority;
+    private EditText editTextQuantum;
+
     private ExampleDialogListener listener;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class ExampleDialog extends AppCompatDialogFragment{
         View view = inflater.inflate(R.layout.layout_dialog, null);
         editTextBurst = view.findViewById(R.id.edit_burst);
         editTextArrival = view.findViewById(R.id.edit_arrival);
+        editTextPriority = view.findViewById(R.id.edit_priority);
+        editTextQuantum = view.findViewById(R.id.edit_quantum);
 
         builder.setView(view)
                 .setTitle("Add Process")
@@ -37,8 +41,10 @@ public class ExampleDialog extends AppCompatDialogFragment{
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String burst = editTextBurst.getText().toString();
                         String arrival = editTextArrival.getText().toString();
+                        String priority = editTextPriority.getText().toString();
+                        String quantum = editTextQuantum.getText().toString();
                         if(!burst.equals("") && !arrival.equals("")) {
-                            listener.applyTexts(burst, arrival);
+                            listener.applyTexts(burst, arrival,priority,quantum);
                         }
                         else{
                             Toast.makeText(((Dialog) dialogInterface).getContext(), "Please fill up all fields!", Toast.LENGTH_SHORT).show();
@@ -65,7 +71,7 @@ public class ExampleDialog extends AppCompatDialogFragment{
 
     public interface ExampleDialogListener
     {
-        void applyTexts(String burst, String arrival);
+        void applyTexts(String burst, String arrival, String priority, String quantum);
     }
 
 

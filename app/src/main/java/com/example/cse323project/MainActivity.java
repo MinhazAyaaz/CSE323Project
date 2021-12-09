@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements ExampleDialog.Exa
         listItem = new ArrayList<>();
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listItem);
-        adapter.add("ID                        H1         H2         H3        H4");
+        adapter.add("ID                        BT         AT         PR        TQ");
         lv.setAdapter(adapter);
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements ExampleDialog.Exa
     }
 
     @Override
-    public void applyTexts(String burst, String arrival){
+    public void applyTexts(String burst, String arrival, String priority, String quantum){
         processCount++;
-        listItem.add(processCount + " " + burst + " " + arrival);
+        listItem.add(processCount + " " + burst + " " + arrival + " " + priority + "" + quantum);
         adapter.notifyDataSetChanged();
     }
     }
