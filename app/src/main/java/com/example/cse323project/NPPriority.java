@@ -1,5 +1,8 @@
 package com.example.cse323project;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 public class NPPriority {
 
     int[] burstTime;
@@ -137,14 +140,16 @@ public class NPPriority {
         float sum = 0;
         for (int n : waitingTime) {
             sum += n;
+            Log.e("yes", String.valueOf(n));
         }
-        averageWaitingTime = sum / (m - 1);
+        averageWaitingTime = sum / m;
 
         sum = 0;
         for (int n : turnAroundTime) {
             sum += n;
+            Log.e("yes", String.valueOf(n));
         }
-        averageTurnAroundTime = sum / (m - 1);
+        averageTurnAroundTime = sum / m;
 
         ta = turnAroundTime;
     }

@@ -2,6 +2,8 @@ package com.example.cse323project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,7 +17,7 @@ public class ResultActivity extends AppCompatActivity {
 
     //Variable declarations
     TextView waitText;
-    TextView gantt1,gantt2,gantt3,gantt4;
+    TextView gantt1;
     TextView turnText;
     TextView compText;
     TextView algorithm;
@@ -27,6 +29,7 @@ public class ResultActivity extends AppCompatActivity {
     float averageCompletionTime;
     String ganttChart;
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +90,6 @@ public class ResultActivity extends AppCompatActivity {
                 break;
         }
 
-
         waitText.setText(String.format("%f",averageWaitingTime));
         turnText.setText(String.format("%f",averageTurnaroundTime));
         compText.setText(String.format("%f",averageCompletionTime));
@@ -97,7 +99,8 @@ public class ResultActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(ResultActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -131,19 +134,9 @@ public class ResultActivity extends AppCompatActivity {
         obj.ganttChart();
         ganttChart = obj.getGanttChart();
 
-
     }
 
     public void PP(){
-
-        NPPriority obj = new NPPriority();
-        obj.setValues(values);
-        obj.setN(processList.size()-1);
-        obj.priorityNonPreemptiveAlgorithm();
-        averageWaitingTime = obj.getAverageWaitingTime();
-        averageTurnaroundTime = obj.getAverageTurnAroundTime();
-        obj.ganttChart();
-        ganttChart = obj.getGanttChart();
 
     }
 
@@ -162,7 +155,15 @@ public class ResultActivity extends AppCompatActivity {
 
     public void PNP(){
 
-
+        NPPriority obj = new NPPriority();
+        obj.setValues(values);
+        obj.setN(processList.size()-1);
+        obj.getProcessData();
+        obj.priorityNonPreemptiveAlgorithm();
+        averageWaitingTime = obj.getAverageWaitingTime();
+        averageTurnaroundTime = obj.getAverageTurnAroundTime();
+        obj.ganttChart();
+        ganttChart = obj.getGanttChart();
 
     }
 
