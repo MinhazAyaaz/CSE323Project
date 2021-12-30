@@ -15,6 +15,7 @@ public class NPSJF {
     int n;
     int st=0, tot=0;
     int[][] values;
+    String ganttChart;
 
     void setValues(int[][] valuesRecieved) {
         values = valuesRecieved;
@@ -32,6 +33,14 @@ public class NPSJF {
         n = N;
     }
 
+    String getGanttChart(){
+        return ganttChart;
+    }
+
+    void setGanttChart(String gantt){
+        ganttChart = gantt;
+    }
+
     int temp;
 
     public void getProcess() {
@@ -39,6 +48,9 @@ public class NPSJF {
         pid = new int[n];
         bt = new int[n];
         at = new int[n];
+        ct = new int[n];
+        ta = new int[n];
+        wt = new int[n];
         f = new int[n];
 
         for (int i = 0; i < n; i++) {
@@ -90,6 +102,53 @@ public class NPSJF {
 
         averageWaitingTime /= n;
 
+
+    }
+
+    public void ganttChart(){
+
+        String s1 = "";
+        String s2 = "";
+        String s3 = "";
+        String s4 = "";
+        int i, j;
+
+        // print top bar
+        s1 = s1+ " ";
+        for(i=0; i<n; i++) {
+            for(j=0; j<4; j++) s1 = s1 + "--";
+            s1 = s1+ " ";
+        }
+        s1 = s1 + "\n|";
+
+        // printing process id in the middle
+        for(i=0; i<n; i++) {
+            for(j=0; j<3 - 1; j++) s2 = s2 + " ";;
+            s2 = s2 + "p";
+            s2 = s2 + pid[i];
+            for(j=0; j<3 - 1; j++) s2 = s2 + " ";
+            s2 = s2 + "|";
+        }
+        s2 = s2 + "\n ";
+
+        // printing bottom bar
+        for(i=0; i<n; i++) {
+            for(j=0; j<4; j++) s3 = s3 + "--";
+            s3 = s3 + " ";
+        }
+        s3 = s3 + "\n";
+
+        // printing the time line
+        s4 = s4 + "0";
+        for(i=0; i<n; i++) {
+            for(j=0; j<3; j++) s4 = s4 + "  ";
+            //if(ta[i] > 9) s4 = s4 + "\b"; // backspace : remove 1 space
+            s4 = s4 + ta[i];
+
+        }
+        s4 = s4 + "\n";
+
+        ganttChart = s1 + s2 + s3 + s4;
 
     }
 }

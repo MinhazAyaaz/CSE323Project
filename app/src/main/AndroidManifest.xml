@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSE323Project">
-        <activity android:name=".ExampleDialog"></activity>
+        <activity android:name=".ExampleDialog">
+        </activity>
         <activity
             android:name=".ResultActivity"
             android:theme="@style/Theme.CSE323Project.NoActionBar">

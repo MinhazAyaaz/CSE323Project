@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6E6E6"
     tools:context=".MainActivity">
 
     <TextView
@@ -11,54 +12,62 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Algorithm:"
-        android:textColor="#070707"
-        android:textSize="24sp"
-        android:translationX="120dp"
-        android:translationY="100dp" />
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:translationX="130dp"
+        android:translationY="110dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CPU Scheduling"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:translationX="105dp"
+        android:translationY="40dp"
+        android:typeface="serif" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="280dp"
         android:layout_height="42dp"
+        android:soundEffectsEnabled="false"
         android:translationX="65dp"
-        android:translationY="150dp"
-        android:entries="@array/Weight"
-        />
-
+        android:translationY="150dp" />
 
 
     <ListView
         android:id="@+id/processListView"
         android:layout_width="352dp"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:divider="#f00"
         android:dividerHeight="1dp"
         android:translationX="30dp"
-        android:translationY="220dp"
+        android:translationY="205sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131"
-        />
+        app:layout_constraintVertical_bias="0.131" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DELETE"
-        android:translationX="290dp"
-        android:translationY="550dp"
+        android:translationX="166dp"
+        android:translationY="570dp"
         app:backgroundTint="#252525" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EDIT"
-        android:translationX="165dp"
-        android:translationY="550dp"
+        android:text="REFRESH"
+        android:translationX="290dp"
+        android:translationY="570dp"
         app:backgroundTint="#252525" />
 
     <Button
@@ -67,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="Add"
         android:translationX="30dp"
-        android:translationY="550dp"
+        android:translationY="570sp"
         app:backgroundTint="#252525" />
 
     <Button
@@ -76,7 +85,7 @@
         android:layout_height="wrap_content"
         android:text="Calculate"
         android:translationX="150dp"
-        android:translationY="630dp"
+        android:translationY="650dp"
         app:backgroundTint="#252525" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

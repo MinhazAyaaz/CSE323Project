@@ -40,6 +40,10 @@ public class PSJF {
         pid = new int[n];
         bt = new int[n];
         at = new int[n];
+        ct = new int[n];
+        ta = new int[n];
+        wt = new int[n];
+        k = new int[n];
         f = new int[n];
 
         for (int i = 0; i < n; i++) {
@@ -90,7 +94,6 @@ public class PSJF {
             averageWaitingTime+= wt[i];
             averageTurnAroundTime+= ta[i];
         }
-
 
         averageWaitingTime=(float)(averageWaitingTime/n);
         averageTurnAroundTime=(float)(averageTurnAroundTime/n);

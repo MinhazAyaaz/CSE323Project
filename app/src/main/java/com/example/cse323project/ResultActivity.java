@@ -1,28 +1,31 @@
-             package com.example.cse323project;
+package com.example.cse323project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 
     //Variable declarations
-    TextView text1;
-    ArrayList<String> processList;
+    TextView waitText;
+    TextView gantt1,gantt2,gantt3,gantt4;
+    TextView turnText;
+    TextView compText;
+    TextView algorithm;
+    ArrayList<Process> processList;
     ImageButton backButton;
     int[][] values = new int[100][5];
-    double avgwaittime;
-    double avgturnaroundtime;
-    double awt;
-    double atat;
+    float averageWaitingTime;
+    float averageTurnaroundTime;
+    float averageCompletionTime;
+    String ganttChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +33,66 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         //Retrieving ArrayList sent by MainActivity
-        processList = new ArrayList<String>();
-        processList = (ArrayList<String>) getIntent().getSerializableExtra("list");
+        processList = new ArrayList<Process>();
+        processList = (ArrayList<Process>) getIntent().getSerializableExtra("list");
 
         for(int i=1;i< processList.size();i++) {
-            String[] string = processList.get(i).split(" ");
-
-            for (int j = 0; j < string.length; j++) {
-                try {
-                    values[i-1][j] = Integer.valueOf(string[j]);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            try {
+                if(processList.get(i).getId() != null) {
+                    values[i-1][0] = Integer.valueOf(processList.get(i).getId());
                 }
+                if(processList.get(i).getBurstTime() != null) {
+                    values[i-1][1] = Integer.valueOf(processList.get(i).getBurstTime());
+                }
+                if(processList.get(i).getArrivalTime() != null) {
+                    values[i-1][2] = Integer.valueOf(processList.get(i).getArrivalTime());
+                }
+                if(processList.get(i).getPriority() != null) {
+                    values[i-1][3] = Integer.valueOf(processList.get(i).getPriority());
+                }
+                if(processList.get(i).getTimeQuantum() != null) {
+                    values[i-1][4] = Integer.valueOf(processList.get(i).getTimeQuantum());
+                }
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
             }
         }
 
-        RoundRobin obj = new RoundRobin();
-        obj.setN(processList.size()-1);
-        obj.RoundRobinAlgorithm(values);
-
-        text1 = (TextView)findViewById(R.id.textView4);
-        text1.setText(String.format("%f",obj.getAverageWaitingTime()));
         backButton = (ImageButton)findViewById(R.id.imageButton);
+        algorithm = (TextView)findViewById(R.id.textWaitingTime2);
+        waitText = (TextView)findViewById(R.id.textWaitingTime);
+        turnText = (TextView)findViewById(R.id.textView3);
+        compText = (TextView)findViewById(R.id.textView8);
+        gantt1 = (TextView)findViewById(R.id.textWaitingTime3);
+
+        switch(getIntent().getStringExtra("algo")){
+
+            case "First Come First Serve":
+                FCFS();
+                break;
+            case "Shortest Job First(Preemptive)":
+                PSJF();
+                break;
+            case "Shortest Job First(Non Preemptive)":
+                NPSJF();
+                break;
+            case "Priority(Preemptive)":
+                PP();
+                break;
+            case "Priority(Non Preemptive)":
+                PNP();
+                break;
+            case "Round Robin":
+                RR();
+                break;
+        }
+
+
+        waitText.setText(String.format("%f",averageWaitingTime));
+        turnText.setText(String.format("%f",averageTurnaroundTime));
+        compText.setText(String.format("%f",averageCompletionTime));
+        gantt1.setText(ganttChart);
+        algorithm.setText(getIntent().getStringExtra("algo"));
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +103,81 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
-    
+    public void FCFS(){
+
+        FCFS obj = new FCFS();
+        obj.setValues(values);
+        obj.setN(processList.size()-1);
+        obj.getProcess();
+        obj.FirstComeFirstServeAlgorithm();
+        averageWaitingTime = obj.getAverageWaitingTime();
+        averageTurnaroundTime = obj.getAverageTurnAroundTime();
+        obj.ganttChart();
+        ganttChart = obj.getGanttChart();
+
+
+    }
+
+
+    public void NPSJF(){
+
+        NPSJF obj = new NPSJF();
+        obj.setValues(values);
+        obj.setN(processList.size()-1);
+        obj.getProcess();
+        obj.NonPreemptiveSJF();
+        averageWaitingTime = obj.getAverageWaitingTime();
+        averageTurnaroundTime = obj.getAverageTurnAroundTime();
+        obj.ganttChart();
+        ganttChart = obj.getGanttChart();
+
+
+    }
+
+    public void PP(){
+
+        NPPriority obj = new NPPriority();
+        obj.setValues(values);
+        obj.setN(processList.size()-1);
+        obj.priorityNonPreemptiveAlgorithm();
+        averageWaitingTime = obj.getAverageWaitingTime();
+        averageTurnaroundTime = obj.getAverageTurnAroundTime();
+        obj.ganttChart();
+        ganttChart = obj.getGanttChart();
+
+    }
+
+
+    public void PSJF(){
+
+        PSJF obj = new PSJF();
+        obj.setValues(values);
+        obj.setN(processList.size()-1);
+        obj.getProcess();
+        obj.PreemptiveShortestJobFirst();
+        averageWaitingTime = obj.getAverageWaitingTime();
+        averageTurnaroundTime = obj.getAverageTurnAroundTime();
+
+    }
+
+    public void PNP(){
+
+
+
+    }
+
+    public void RR(){
+
+        RoundRobin obj = new RoundRobin();
+        obj.setN(processList.size()-1);
+        obj.RoundRobinAlgorithm(values);
+        averageWaitingTime = obj.getAverageWaitingTime();
+        averageTurnaroundTime = obj.getAverageTurnAroundTime();
+
+    }
+
+
+
 
 //    public void PSJ(){
 //
