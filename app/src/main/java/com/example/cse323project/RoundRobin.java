@@ -1,5 +1,7 @@
 package com.example.cse323project;
 
+import android.util.Log;
+
 // Java program to implement Round Robin
 // Scheduling with different arrival time
 class RoundRobin {
@@ -7,7 +9,7 @@ class RoundRobin {
 
     float averageTurnAroundTime;
     float averageWaitingTime;
-    int n;
+    int m;
 
     float getAverageTurnAroundTime() {
         return averageTurnAroundTime;
@@ -18,54 +20,68 @@ class RoundRobin {
     }
 
     void setN(int N) {
-        n = N;
+        m = N;
     }
 
 
     public void RoundRobinAlgorithm(int[][] values)
     {
 
-        float res = 0;
-        float resc = 0;
+        Log.e("initial3", String.valueOf(values[0][2]));
+
+        int[] b = new int[m];
+        int[] a = new int[m];
+        int[] p = new int[m];
+        int n = values[0][4];
+
+        for(int i=0;i<n;i++){
+            p[i] = values[i][0];
+            b[i] = values[i][1];
+            a[i] = values[i][2];
+        }
+
+
+        // result of average times
+        int res = 0;
+        int resc = 0;
+
 
         // copy the burst array and arrival array
         // for not effecting the actual array
-        int res_b[] = new int[n];
-        int res_a[] = new int[n];
+        int res_b[] = new int[b.length];
+        int res_a[] = new int[a.length];
 
         for (int i = 0; i < res_b.length; i++) {
-            res_b[i] = values[i][1];
-            res_a[i] = values[i][2];
+            res_b[i] = b[i];
+            res_a[i] = a[i];
         }
 
         // critical time of system
         int t = 0;
 
         // for store the waiting time
-        int w[] = new int[n];
+        int w[] = new int[p.length];
 
         // for store the Completion time
-        int comp[] = new int[n];
+        int comp[] = new int[p.length];
 
         while (true) {
             boolean flag = true;
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < p.length; i++) {
 
                 // these condition for if
                 // arrival is not on zero
-
                 // check that if there come before qtime
                 if (res_a[i] <= t) {
-                    if (res_a[i] <= values[i][4]) {
+                    if (res_a[i] <= n) {
                         if (res_b[i] > 0) {
                             flag = false;
-                            if (res_b[i] > values[i][4]) {
+                            if (res_b[i] > n) {
 
                                 // make decrease the b time
-                                t = t + values[i][4];
-                                res_b[i] = res_b[i] - values[i][4] ;
-                                res_a[i] = res_a[i] + values[i][4];
-
+                                t = t + n;
+                                res_b[i] = res_b[i] - n;
+                                res_a[i] = res_a[i] + n;
                             }
                             else {
 
@@ -73,59 +89,57 @@ class RoundRobin {
                                 t = t + res_b[i];
 
                                 // store comp time
-                                comp[i] = t - values[i][2];
+                                comp[i] = t - a[i];
 
                                 // store wait time
-                                w[i] = t - values[i][1] - values[i][2];
+                                w[i] = t - b[i] - a[i];
                                 res_b[i] = 0;
 
+                                // add sequence
                             }
                         }
                     }
-                    else if (res_a[i] > values[i][4]) {
+                    else if (res_a[i] > n) {
 
                         // is any have less arrival time
                         // the coming process then execute them
-                        for (int j = 0; j < n; j++) {
+                        for (int j = 0; j < p.length; j++) {
 
                             // compare
                             if (res_a[j] < res_a[i]) {
                                 if (res_b[j] > 0) {
                                     flag = false;
-                                    if (res_b[j] > values[i][4]) {
-                                        t = t + values[i][4];
-                                        res_b[j] = res_b[j] - values[i][4];
-                                        res_a[j] = res_a[j] + values[i][4];
-
+                                    if (res_b[j] > n) {
+                                        t = t + n;
+                                        res_b[j] = res_b[j] - n;
+                                        res_a[j] = res_a[j] + n;
                                     }
                                     else {
                                         t = t + res_b[j];
-                                        comp[j] = t - values[j][2];
-                                        w[j] = t - values[j][1] - values[j][2];
+                                        comp[j] = t - a[j];
+                                        w[j] = t - b[j] - a[j];
                                         res_b[j] = 0;
-
                                     }
                                 }
                             }
                         }
 
-
+                        // now the previous porcess according to
+                        // ith is process
                         if (res_b[i] > 0) {
                             flag = false;
 
-
-                            if (res_b[i] > values[i][4]) {
-                                t = t + values[i][4];
-                                res_b[i] = res_b[i] - values[i][4];
-                                res_a[i] = res_a[i] + values[i][4];
-
+                            // Check for greaters
+                            if (res_b[i] > n) {
+                                t = t + n;
+                                res_b[i] = res_b[i] - n;
+                                res_a[i] = res_a[i] + n;
                             }
                             else {
                                 t = t + res_b[i];
-                                comp[i] = t - values[i][2];
-                                w[i] = t - values[i][1] - values[i][2];
+                                comp[i] = t - a[i];
+                                w[i] = t - b[i] - a[i];
                                 res_b[i] = 0;
-
                             }
                         }
                     }
@@ -143,13 +157,14 @@ class RoundRobin {
             }
         }
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < m; i++) {
             res = res + w[i];
             resc = resc + comp[i];
+
         }
 
-        averageWaitingTime = res/n;
-        averageTurnAroundTime = resc/n;
+        averageWaitingTime = (float)res/m;
+        averageTurnAroundTime = (float)resc/m;
     }
 
 }
