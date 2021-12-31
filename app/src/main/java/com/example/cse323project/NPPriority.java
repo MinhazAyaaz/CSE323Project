@@ -140,14 +140,12 @@ public class NPPriority {
         float sum = 0;
         for (int n : waitingTime) {
             sum += n;
-            Log.e("yes", String.valueOf(n));
         }
         averageWaitingTime = sum / m;
 
         sum = 0;
         for (int n : turnAroundTime) {
             sum += n;
-            Log.e("yes", String.valueOf(n));
         }
         averageTurnAroundTime = sum / m;
 

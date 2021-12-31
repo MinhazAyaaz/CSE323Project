@@ -9,19 +9,6 @@ public class Process implements Serializable {
         private String priority;
         private String timeQuantum;
 
-    public Process(String id, String burstTime, String arrivalTime) {
-        this.id = id;
-        this.burstTime = burstTime;
-        this.arrivalTime = arrivalTime;
-    }
-
-    public Process(String id, String burstTime, String arrivalTime, String priority) {
-        this.id = id;
-        this.burstTime = burstTime;
-        this.arrivalTime = arrivalTime;
-        this.priority = priority;
-    }
-
     public Process(String id, String burstTime, String arrivalTime, String priority, String timeQuantum) {
         this.id = id;
         this.burstTime = burstTime;

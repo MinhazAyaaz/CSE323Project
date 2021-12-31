@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -50,11 +51,12 @@ public class ResultActivity extends AppCompatActivity {
                 if(processList.get(i).getArrivalTime() != null) {
                     values[i-1][2] = Integer.valueOf(processList.get(i).getArrivalTime());
                 }
+                if(processList.get(i).getTimeQuantum() != null) {
+                    Log.e("TQ",processList.get(i).getTimeQuantum());
+                    values[i-1][4] = Integer.valueOf(processList.get(i).getTimeQuantum());
+                }
                 if(processList.get(i).getPriority() != null) {
                     values[i-1][3] = Integer.valueOf(processList.get(i).getPriority());
-                }
-                if(processList.get(i).getTimeQuantum() != null) {
-                    values[i-1][4] = Integer.valueOf(processList.get(i).getTimeQuantum());
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
@@ -170,7 +172,6 @@ public class ResultActivity extends AppCompatActivity {
     public void RR(){
 
         RoundRobin obj = new RoundRobin();
-        obj.setN(processList.size()-1);
         obj.RoundRobinAlgorithm(values);
         averageWaitingTime = obj.getAverageWaitingTime();
         averageTurnaroundTime = obj.getAverageTurnAroundTime();
